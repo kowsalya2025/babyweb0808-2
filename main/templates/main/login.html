@@ -1,0 +1,202 @@
+  
+  {% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}Login / Register{% endblock %}
+
+{% block content %}
+ <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+  
+
+    .form-container {
+          background: linear-gradient(135deg, #ddeefb, #f0faff);
+      max-width: 520px;
+      margin: 60px auto;
+      padding: 30px;
+      background-color: #ffffff;
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(0, 120, 200, 0.2);
+      animation: fadeInUp 0.8s ease-out both;
+    }
+
+    .form-container h2 {
+      color: #007BFF;
+      font-weight: bold;
+      margin-bottom: 25px;
+      text-align: center;
+    }
+
+    .form-container a {
+      color: #007BFF;
+      text-decoration: none;
+    }
+
+    .form-container a:hover {
+      text-decoration: underline;
+    }
+
+    .btn-primary {
+      background-color: #007BFF;
+      border: none;
+    }
+
+    .btn-success {
+      background-color: #28a745;
+      border: none;
+    }
+
+    .btn-warning {
+      background-color: #ffc107;
+      border: none;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="form-container shadow">
+
+    <!-- Login Form -->
+    <form id="loginForm">
+      <h2>Login</h2>
+      <div class="mb-3 fs-5">
+        <label>Email</label>
+        <input type="email" id="loginEmail" class="form-control" placeholder="Enter your email" required>
+      </div>
+      <div class="mb-3 fs-5">
+        <label>Password</label>
+        <input type="password" id="loginPassword" class="form-control" placeholder="Enter your password" required>
+      </div>
+      <button type="submit" class="btn btn-primary w-100 fs-5">Login</button>
+      <div class="mt-3 d-flex justify-content-between fs-5">
+        <a href="#" onclick="showForgotPassword()">Forgot Password?</a>
+        <a href="#" onclick="showRegister()">Register</a>
+      </div>
+    </form>
+
+    <!-- Register Form -->
+    <form id="registerForm" class="hidden">
+      <h2>Register</h2>
+      <div class="mb-3 fs-5">
+        <label>Name</label>
+        <input type="text" id="regName" class="form-control" placeholder="Full name" required>
+      </div>
+      <div class="mb-3 fs-5">
+        <label>Email</label>
+        <input type="email" id="regEmail" class="form-control" placeholder="Email address" required>
+      </div>
+      <div class="mb-3 fs-5">
+        <label>Password (min 6 characters)</label>
+        <input type="password" id="regPassword" class="form-control" placeholder="Password" minlength="6" required>
+      </div>
+      <button type="submit" class="btn btn-success w-100 fs-5">Register</button>
+      <div class="mt-3 text-center fs-5">
+        <a href="#" onclick="showLogin()">Back to Login</a>
+      </div>
+    </form>
+
+    <!-- Forgot Password Form -->
+    <form id="forgotForm" class="hidden">
+      <h2>Reset Password</h2>
+      <div class="mb-3 fs-5">
+        <label>Email</label>
+        <input type="email" id="forgotEmail" class="form-control" placeholder="Enter registered email" required>
+      </div>
+      <button type="submit" class="btn btn-warning w-100 fs-5">Reset Password</button>
+      <div class="mt-3 text-center fs-5">
+        <a href="#" onclick="showLogin()">Back to Login</a>
+      </div>
+    </form>
+
+  </div>
+
+  <script>
+    const loginForm = document.getElementById("loginForm");
+    const registerForm = document.getElementById("registerForm");
+    const forgotForm = document.getElementById("forgotForm");
+
+    function showRegister() {
+      loginForm.classList.add("hidden");
+      forgotForm.classList.add("hidden");
+      registerForm.classList.remove("hidden");
+    }
+
+    function showLogin() {
+      registerForm.classList.add("hidden");
+      forgotForm.classList.add("hidden");
+      loginForm.classList.remove("hidden");
+    }
+
+    function showForgotPassword() {
+      loginForm.classList.add("hidden");
+      registerForm.classList.add("hidden");
+      forgotForm.classList.remove("hidden");
+    }
+
+    // Register user
+    registerForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+      const name = document.getElementById("regName").value;
+      const email = document.getElementById("regEmail").value;
+      const password = document.getElementById("regPassword").value;
+
+      const users = JSON.parse(localStorage.getItem("users") || "[]");
+      const exists = users.find(u => u.email === email);
+      if (exists) {
+        alert("User already exists!");
+        return;
+      }
+
+      users.push({ name, email, password });
+      localStorage.setItem("users", JSON.stringify(users));
+      alert("Registered successfully! Please login.");
+      showLogin();
+    });
+
+    // Login user
+    loginForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+      const email = document.getElementById("loginEmail").value;
+      const password = document.getElementById("loginPassword").value;
+
+      const users = JSON.parse(localStorage.getItem("users") || "[]");
+      const user = users.find(u => u.email === email && u.password === password);
+      if (user) {
+        alert("Login successful!");
+        // Redirect to dashboard or homepage here
+      } else {
+        alert("Invalid email or password.");
+      }
+    });
+
+    // Forgot password
+    forgotForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+      const email = document.getElementById("forgotEmail").value;
+      const users = JSON.parse(localStorage.getItem("users") || "[]");
+      const user = users.find(u => u.email === email);
+      if (user) {
+        alert("Password reset link sent to your email (simulated).");
+      } else {
+        alert("Email not found!");
+      }
+    });
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  {% endblock %}

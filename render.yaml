@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: babyshop
+    env: python
+    buildCommand: "./build.sh"
+    startCommand: "gunicorn project.wsgi:application"
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.11"
+

@@ -1,0 +1,720 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+
+
+
+<style>
+  .rainbow-banner {
+            position: relative;
+            background: url("{% static 'main/rainbow.jpg' %}") no-repeat center center;
+            background-size: cover;
+            height: 600px;
+            width: 100%;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .content-overlay {
+            position: absolute;
+            top: 150px;
+            left: 150px;
+            color: white;
+            z-index: 2;
+            font-size: 32px;
+            max-width: 700px;
+        }
+
+        .baby-image {
+            position: absolute;
+            bottom: 50px;
+            right: 30px;
+            height: 500px;
+            z-index: 2;
+        }
+
+        /* Optional: Overlay to darken background for text visibility */
+        .dark-overlay {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            z-index: 1;
+        }
+
+/* first four cart */
+.category-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  border: 2px solid lightskyblue;
+  margin: 10px;
+  border-radius: 10px;
+}
+
+.category-card img.sizefix {
+  max-height: 250px; /* Adjust based on your design */
+  object-fit: contain;
+  margin: 10px;
+}
+
+.category-footer {
+  margin-top: auto;
+  background-color: #b8e8f9; /* Push footer to bottom */
+}
+@keyframes fadeUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.card-animate {
+  animation: fadeUp 0.8s ease-in-out forwards;
+  opacity: 0; /* Start hidden */
+}
+
+
+/* testimonials */
+
+    .testimonial-section {
+      padding: 80px 20px;
+    }
+
+    .testimonial-title {
+      font-size: 36px;
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    .testimonial-subtitle {
+      text-align: center;
+      font-size: 20px;
+      margin-bottom: 50px;
+    }
+
+    .testimonial-card {
+      background-color: #ffffff;
+      border: 6px solid #b8e8f9;
+      border-radius: 30px;
+      padding: 40px 20px 30px;
+      text-align: center;
+      position: relative;
+      clip-path: polygon(10% 0%, 90% 2%, 100% 90%, 0% 98%);
+      min-height: 380px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      transition: transform 0.3s ease;
+      border: 10px solid rgb(101, 101, 201);
+    }
+
+    .testimonial-card:hover {
+      transform: translateY(-10px);
+    }
+
+    .testimonial-image {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      border: 4px solid white;
+      object-fit: cover;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      position: absolute;
+      bottom: 80px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+    }
+
+    .star-icon {
+      position: absolute;
+      bottom: 85px;
+      left: 55%;
+      background: #e0ec8a;
+      border-radius: 50%;
+      padding: 2px;
+      z-index: 999;
+    }
+
+    .testimonial-name {
+      font-weight: bold;
+      margin-top: 15px;
+    }
+
+    .testimonial-location {
+      font-size: 20px;
+      color: #444;
+    }
+
+    .testimonial-text {
+      font-size: 18px;
+      color: #3e3838;
+      /* margin-top: 10px; */
+    }
+
+    /* feq box */
+     .faq-container {
+    
+            max-width: 1000px;
+            margin: auto;
+        }
+        h1 {
+            text-align: center;
+            font-weight: bold;
+        }
+        .faq-box {
+            background: rgb(196, 227, 246);
+            border: 1px solid #1a0e5c;
+            border-radius: 20px;
+            padding: 20px;
+            margin: 10px 0;
+            cursor: pointer;
+            font-size: 20px;
+            font-weight: bold;
+            color: #5f4c41;
+        }
+        .question {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .answer {
+            margin-top: 10px;
+            display: none;
+            font-weight: normal;
+            font-size:20px;
+            color: #333;
+        }
+        .faq-box.active .answer {
+            display: block;
+        }
+        a {
+            display: block;
+            margin-top: 20px;
+            color: #333;
+        }
+
+</style>
+<!-- HERO SECTION -->
+<section>
+<div class="rainbow-banner">
+    <div class="dark-overlay"></div>
+
+    <div class="content-overlay">
+        <h1>Gentle Care For Growing Joy</h1>
+        <p>Premium baby care products crafted with love, purity, and the softest meterials - because your baby deservers the best.</p>
+    </div>
+
+    <img src="{% static 'main/cute.png' %}" alt="Baby Image" class="baby-image">
+</div>
+</section>
+
+<!-- Featured Categories Section -->
+<section class="py-5">
+  <div class="container">
+    <h2 class="text-center fw-bold mb-2">Featured Categories</h2>
+    <h4 class="text-center text-muted mb-4">Everything Your Baby Needs</h4>
+    <div class="row g-2 justify-content-center my-5">
+
+      <!-- Category Card -->
+     <div class="col-12 col-sm-6 col-md-3 h-100"  data-aos="zoom-in" data-aos-duration="800">
+  <div class="category-card shadow-sm text-center">
+    <img src="{% static 'main/mee1.png' %}" class="img-fluid mb-3 rounded sizefix" alt="Diapers">
+    <div class="category-footer d-flex justify-content-between align-items-center px-3 py-2">
+      <span class="fw-semibold fs-5">Diapers & Pampers</span>
+      <a href="{% url 'products_pampers' %}" class="icon-btn">
+        <i class="bi bi-box-arrow-up-right"></i>
+      </a>
+    </div>
+  </div>
+</div>
+
+      <!-- Baby Dress -->
+      <div class="col-12 col-sm-6 col-md-3 h-100"  data-aos="zoom-in" data-aos-duration="800">
+        <div class="category-card shadow-sm text-center">
+          <img src="{% static 'main/222.png' %}" class="img-fluid mb-3 rounded sizefix" alt="Baby Dress">
+          <div class="category-footer d-flex justify-content-between align-items-center px-3 py-2">
+            <span class="fw-semibold fs-5">Baby Dress</span>
+            <a href="{% url 'products_girls' %}" class="icon-btn">
+              <i class="bi bi-box-arrow-up-right"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Baby Soap -->
+      <div class="col-12 col-sm-6 col-md-3 h-100"  data-aos="zoom-in" data-aos-duration="800">
+        <div class="category-card shadow-sm text-center">
+          <img src="{% static 'main/mee3.png' %}" class="img-fluid mb-3 rounded sizefix" alt="Baby Soap">
+          <div class="category-footer d-flex justify-content-between align-items-center px-3 py-2">
+            <span class="fw-semibold fs-5">Baby Soap</span>
+            <a href="{% url 'products_soap' %}" class="icon-btn">
+              <i class="bi bi-box-arrow-up-right"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Baby Stroller -->
+      <div class="col-12 col-sm-6 col-md-3 h-100"  data-aos="zoom-in" data-aos-duration="800">
+        <div class="category-card shadow-sm text-center">
+          <img src="{% static 'main/Frame 14.png' %}" class="img-fluid mb-3 rounded sizefix" alt="Stroller">
+          <div class="category-footer d-flex justify-content-between align-items-center px-3 py-2">
+            <span class="fw-semibold fs-5">Baby Stroller & Prams</span>
+            <a href="{% url 'products_stroller' %}" class="icon-btn">
+              <i class="bi bi-box-arrow-up-right"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="container my-5">
+  <h2 class="text-center fw-bold">Why Parents Trust Us</h2>
+  <h5 class="text-center mb-4">Designed with Love. Backed by Science.</h5>
+
+  <div class="row row-cols-1 row-cols-md-5 g-4">
+    <!-- Card 1 -->
+    <div class="col">
+      <div class="card h-100 text-center border-primary rounded-4 shadow-sm">
+        <div class="card-body d-flex flex-column justify-content-between">
+          <img src="{% static 'main/71.png' %}" alt="Icon" class="mx-auto mb-3" style="height: 100px;">
+          <div class="bg-info-subtle p-3 rounded-3 h-2">
+            <h6 class="fw-bold">Dermatologist Approved</h6>
+            <p class="mb-0">Every product is tested and safe for even the most sensitive baby skin.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="col">
+      <div class="card h-100 text-center border-primary rounded-4 shadow-sm">
+        <div class="card-body d-flex flex-column justify-content-between">
+          <img src="{% static 'main/72.png' %}" alt="Icon" class="mx-auto mb-3" style="height: 100px;">
+          <div class="bg-info-subtle p-3 rounded-3 h-2">
+            <h6 class="fw-bold">Natural & Non-Toxic Ingredients</h6>
+            <p class="mb-0">We use only gentle, plant-based formulas free from harsh chemicals.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="col">
+      <div class="card h-100 text-center border-primary rounded-4 shadow-sm">
+        <div class="card-body d-flex flex-column justify-content-between">
+          <img src="{% static 'main/73.png' %}" alt="Icon" class="mx-auto mb-3" style="height: 100px;">
+          <div class="bg-info-subtle p-3 rounded-3 h-3">
+            <h6 class="fw-bold">Loved by Thousands of Parents</h6>
+            <p class="mb-0">Real reviews, real results trusted by families across the country.<br><br></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 4 -->
+    <div class="col">
+      <div class="card h-100 text-center border-primary rounded-4 shadow-sm">
+        <div class="card-body d-flex flex-column justify-content-between">
+          <img src="{% static 'main/74.png' %}" alt="Icon" class="mx-auto mb-3" style="height: 100px;">
+          <div class="bg-info-subtle p-3 rounded-3 h-3">
+            <h6 class="fw-bold">Eco-Friendly Promise</h6>
+            <p class="mb-0">From biodegradable packaging to cruelty-free manufacturing.<br><br><br></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 5 -->
+    <div class="col">
+      <div class="card h-100 text-center border-primary rounded-4 shadow-sm">
+        <div class="card-body d-flex flex-column justify-content-between">
+          <img src="{% static 'main/75.png' %}" alt="Icon" class="mx-auto mb-3" style="height: 100px;">
+          <div class="bg-info-subtle p-3 rounded-3 h-2">
+            <h6 class="fw-bold">Fast & Reliable Shipping</h6>
+            <p class="mb-0">We deliver essentials swiftly and safely because every moment counts.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<section class="container my-5">
+  <h3 class="text-center fw-bold mb-5">Our Most Loved Products</h3>
+
+  <div class="row justify-content-center">
+    
+    <!-- Card 1 -->
+    <div class="col-12 col-md-4 mb-4">
+      <div class="card h-100 border-primary rounded-4 shadow-sm position-relative">
+        <span class="badge bg-info text-white position-absolute top-0 start-0 m-2 px-3 py-1 rounded-bottom">NEW</span>
+        <div class="card-body text-center">
+          <img src="{% static 'main/thampi1.png' %}" class="img-fluid rounded-3 mb-3" alt="Product Image" style="max-height: 300px;">
+        </div>
+        <div class="bg-info-subtle p-3 d-flex flex-column rounded-bottom">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <h5 class="fw-bold mb-0">wipes</h5>
+            <!-- <a href="#" class="btn btn-info text-white btn-sm px-3 rounded-pill">Buy</a> -->
+                  <button class="btn btn-info text-white buy-btn" 
+  data-name="Wipes" 
+  data-price="1299" 
+  data-image="{% static 'main/thampi1.png' %}">
+  Buy
+</button>
+          </div>
+          <div class="mb-2">
+            <span class="text-warning">★★★★★</span>
+          </div>
+          <div>
+            <span class="text-muted fw-bold me-2">MRP <s>₹1444.00</s></span>
+            <span class="fw-bold text-dark">Price ₹1299.00</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="col-12 col-md-4 mb-4">
+      <div class="card h-100 border-primary rounded-4 shadow-sm position-relative">
+        <span class="badge bg-info text-white position-absolute top-0 start-0 m-2 px-3 py-1 rounded-bottom">NEW</span>
+        <div class="card-body text-center">
+          <img src="{% static 'main/t6.png' %}" class="img-fluid rounded-3 mb-3" alt="Product Image" style="max-height: 300px;">
+        </div>
+        <div class="bg-info-subtle p-3 d-flex flex-column rounded-bottom">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <h5 class="fw-bold mb-0">Mama Miel Baby</h5>
+            <!-- <a href="#" class="btn btn-info text-white btn-sm px-3 rounded-pill">Buy</a> -->
+               <button class="btn btn-info text-white buy-btn" 
+  data-name="Mama Miel Baby" 
+  data-price="1299" 
+  data-image="{% static 'main/t6.png' %}">
+  Buy
+</button>
+
+          </div>
+          <div class="mb-2">
+            <span class="text-warning">★★★★★</span>
+          </div>
+          <div>
+            <span class="text-muted fw-bold me-2">MRP <s>₹1444.00</s></span>
+            <span class="fw-bold text-dark">Price ₹1299.00</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="col-12 col-md-4 mb-4">
+      <div class="card h-100 border-primary rounded-4 shadow-sm position-relative">
+        <span class="badge bg-info text-white position-absolute top-0 start-0 m-2 px-3 py-1 rounded-bottom">NEW</span>
+        <div class="card-body text-center">
+          <img src="{% static 'main/papa.png' %}" class="img-fluid rounded-3 mb-3" alt="Product Image" style="max-height: 300px;">
+        </div>
+        <div class="bg-info-subtle p-3 d-flex flex-column rounded-bottom">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <h5 class="fw-bold mb-0">Zibuyu</h5>
+            <!-- <a href="#" class="btn btn-info text-white btn-sm px-3 rounded-pill">Buy</a> -->
+            <button class="btn btn-info text-white buy-btn" 
+  data-name="Zibuyu" 
+  data-price="1299" 
+  data-image="{% static 'main/pppa.png' %}">
+  Buy
+</button>
+
+          </div>
+          <div class="mb-2">
+            <span class="text-warning">★★★★★</span>
+          </div>
+          <div>
+            <span class="text-muted fw-bold me-2">MRP <s>₹1444.00</s></span>
+            <span class="fw-bold text-dark">Price ₹1299.00</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Optional pagination dots below -->
+  <div class="text-center mt-4">
+    <span class="mx-1 text-info">●</span>
+    <span class="mx-1 text-secondary">●</span>
+    <span class="mx-1 text-secondary">●</span>
+  </div>
+</section>
+
+
+
+
+<section class="py-5">
+  <div class="container">
+    <h1 class="text-center mb-2">Trending Products</h1>
+    <h3 class="text-center mb-5 fw-semibold">Parent Favorites, Baby Approved</h3>
+    <div class="row align-items-center">
+      
+      <!-- Image Column -->
+      <div class="col-md-6 mb-4 mb-md-0">
+        <div class="rounded-4 shadow overflow-hidden">
+          <img src="{% static 'main/babyvec.png' %}" alt="Baby Stroller" class="img-fluid w-100">
+        </div>
+      </div>
+
+      <!-- Text Column -->
+      <div class="col-md-6">
+      
+        <h1 class="fw-bold">Baby Stroller</h1>
+        <h4 style="line-height: 1.6;">
+          Explore the world in comfort with our smooth and stylish baby stroller. 
+          Designed for safety, ease, and flexibility — perfect for every little adventure. 
+          Lightweight, foldable, and parent-friendly for life on the go.
+        </h4>
+        <a  href="{% url 'products_stroller' %}"  class="btn btn-info btn-lg rounded-pill mt-3">
+          Buy Now ↗
+        </a>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row align-items-center">
+      
+      <!-- Text Column -->
+      <div class="col-md-6">
+      
+        <h1 class="fw-bold">Feeding Bottle</h1>
+        <h4 style="line-height: 1.6;">
+         The baby feeding bottle is made from 100% BPA-free safe materials. its soft silicone nipple feels natural and gentle on the baby's mouth. 
+         The anti-colic design helps reduce gas fussiness during feeding. it's Lightweight, easy to hold, and perfect for everyday use.
+        </h4>
+        <a href="{% url 'products_bottle' %}" class="btn btn-info btn-lg rounded-pill mt-3">
+          Buy Now ↗
+        </a>
+      </div>
+
+       <!-- Image Column -->
+      <div class="col-md-6 mb-4 mb-md-0">
+        <div class="rounded-4 shadow overflow-hidden">
+          <img src="{% static 'main/image 13.png' %}" alt="Baby Stroller" class="img-fluid w-100">
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+   <div class="container">
+   
+    <div class="row align-items-center">
+      
+      <!-- Image Column -->
+      <div class="col-md-6 mb-4 mb-md-0">
+        <div class="rounded-4 shadow overflow-hidden">
+          <img src="{% static 'main/mee-mee.png' %}" alt="Baby Stroller" class="img-fluid w-100">
+        </div>
+      </div>
+
+      <!-- Text Column -->
+      <div class="col-md-6">
+      
+        <h1 class="fw-bold">Pampers</h1>
+        <h4 style="line-height: 1.6;">
+         Keep your baby dry, comfy, and smilling all day with our ultra-soft diapers. Designed with leak-lock tecnology
+         and breathable layers for extra protection. Gentle on delicate skin, perfect for day and night comport.
+        </h4>
+        <a href="{% url 'products_pampers' %}"  class="btn btn-info btn-lg rounded-pill mt-3">
+          Buy Now ↗
+        </a>
+      </div>
+
+    </div>
+  </div>
+
+  
+</section>
+
+
+<!-- Testimonials Section -->
+<section class="testimonial-section">
+  <div class="container">
+    <div class="testimonial-title">Customer Testimonials</div>
+    <div class="testimonial-subtitle">Parent Favorites, Baby Approved</div>
+
+    <div class="row justify-content-center gy-5">
+      <!-- Card 1 -->
+      <div class="col-md-4">
+        <div class="testimonial-card">
+          <div class="position-relative">
+            <img src="static/main/test1.jpg" class="testimonial-image" alt="User">
+            <img src="static/main/startest.png" class="star-icon" alt="Star" width="30">
+          </div>
+          <div class="testimonial-name">Rahul S. – Bangalore, India</div>
+          <div class="testimonial-text">
+            "We love the stroller – lightweight, easy to fold, and super smooth on roads. Perfect for city walks. The quality feels premium, and my daughter is always comfy in it.”
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="col-md-4">
+        <div class="testimonial-card">
+          <div class="position-relative">
+            <img src="static/main/testi.jpg" class="testimonial-image" alt="User">
+            <img src="static/main/startest.png" class="star-icon" alt="Star" width="30">
+          </div>
+          <div class="testimonial-name">Priya M. – Chennai, India</div>
+          <div class="testimonial-text">
+            "The EarthBubs diapers are amazing! My baby sleeps through the night without any leaks or rashes. I've tried many brands, but this one is truly gentle and reliable."
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="col-md-4">
+        <div class="testimonial-card">
+          <div class="position-relative">
+            <img src="static/main/testi3.jpg" class="testimonial-image" alt="User">
+            <img src="static/main/startest.png" class="star-icon" alt="Star" width="30">
+          </div>
+          <div class="testimonial-name">Anika R. – Mumbai, India</div>
+          <div class="testimonial-text">
+            "I ordered the baby Soap kit and I’m blown away. The lotion and wash are so gentle, and the natural fragrance is lovely. No irritation at all – just soft, healthy skin."
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+ <section>
+  
+ <div class="faq-container my-5">
+        <h1>FAQ’S</h1>
+
+        <div class="faq-box">
+    <div class="question">
+                Are your products safe for newborns?
+                <span class="toggle-btn">⌄</span>
+            </div>
+            <div class="answer">Yes, all our products are dermatological tested and made with gentle, non-toxic Ingredients that are safe for newborns and sensitive skin.</div>
+        </div>
+
+        <div class="faq-box">
+            <div class="question">
+                How long does delivery take?
+                <span class="toggle-btn">⌄</span>
+            </div>
+            <div class="answer">Yes, just click the heart icon next to any recipe to save it to your favorites.</div>
+        </div>
+
+        <div class="faq-box">
+            <div class="question">
+               Can I return or exchange a product?
+                <span class="toggle-btn">⌄</span>
+            </div>
+            <div class="answer">You can submit your own recipes by clicking the “Submit Recipe” button in your profile menu.</div>
+        </div>
+
+        <div class="faq-box">
+            <div class="question">
+                What payment methods do you accept?
+                <span class="toggle-btn">⌄</span>
+            </div>
+            <div class="answer">Absolutely! We have a special “Beginner” tag to filter easy-to-follow recipes for new cooks.</div>
+       
+           </div>
+      
+        <div class="faq-box">
+    <div class="question">
+                Are your skincare products organic or natural?
+                <span class="toggle-btn">⌄</span>
+            </div>
+            <div class="answer">You can use the search bar at the top of the homepage to search by recipe name or ingredient.</div>
+        </div>
+
+        <div class="faq-box">
+            <div class="question">
+                How can I contact customer support?
+                <span class="toggle-btn">⌄</span>
+            </div>
+            <div class="answer">Yes, just click the heart icon next to any recipe to save it to your favorites.</div>
+        </div>
+           </div>
+
+
+<script>
+        document.querySelectorAll('.toggle-btn').forEach((btn, index) => {
+            btn.addEventListener('click', function () {
+                const box = this.closest('.faq-box');
+                box.classList.toggle('active');
+            });
+        });
+    </script>
+</section>
+
+
+<script>
+  const filter = document.getElementById("priceFilter");
+ const cards = document.querySelectorAll(".product-item");
+
+  filter.addEventListener("change", function () {
+    const val = filter.value;
+
+    cards.forEach(card => {
+      const price = parseInt(card.getAttribute("data-price"));
+
+      if (val === "all") {
+        card.style.display = "block";
+      } else {
+        const [min, max] = val.split('-').map(Number);
+        if (price >= min && price <= max) {
+          card.style.display = "block";
+        } else {
+          card.style.display = "none";
+        }
+      }
+    });
+  });
+</script>
+<script>
+    document.querySelectorAll('.buy-btn').forEach(btn => {
+  btn.addEventListener('click', function () {
+    const name = this.dataset.name;
+    const price = parseFloat(this.dataset.price);
+    const image = this.dataset.image;
+
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    const existing = cart.find(item => item.name === name);
+    if (existing) {
+      existing.quantity += 1;
+    } else {
+      cart.push({ name, price, image, quantity: 1 });
+    }
+
+    localStorage.setItem('cart', JSON.stringify(cart));
+    alert(`${name} added to cart!`);
+    updateCartCount();
+  });
+});
+
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+{% endblock %}
+

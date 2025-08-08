@@ -1,0 +1,257 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>EarthBubs</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
+  <style>
+
+    /* Navbar Styling */
+.navbar {
+  border-radius: 15px;
+  margin: 20px auto;
+  /* max-width: 95%; */
+  padding: 1rem 2rem;
+  background-color: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  transition: all 0.3s ease-in-out;
+}
+
+.navbar-brand {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #2c3e50;
+}
+
+.navbar-nav .nav-link {
+  font-weight: 500;
+  margin: 0 10px;
+  color: #333;
+  transition: color 0.2s ease-in-out;
+}
+
+.navbar-nav .nav-link:hover,
+.navbar-nav .nav-link.active {
+  color: #0099cc;
+  border-bottom: 2px solid #0099cc;
+}
+
+.navbar-toggler {
+  border: none;
+}
+
+.dropdown-menu {
+  border-radius: 10px;
+  padding: 0.5rem;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+.dropdown-item {
+  padding: 10px 20px;
+  border-radius: 6px;
+  transition: background 0.2s;
+  font-weight: 500;
+}
+
+.dropdown-item:hover {
+  background-color: #f0f0f0;
+  color: #0099cc;
+}
+
+.search-box {
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  padding: 6px 12px;
+  width: 200px;
+}
+
+.btn i {
+  color: #555;
+}
+
+.btn:hover i {
+  color: #0099cc;
+}
+
+.bi {
+  transition: color 0.2s;
+}
+
+.bi:hover {
+  color: #0099cc;
+}
+
+/* Make navbar more mobile-friendly */
+@media (max-width: 768px) {
+  .navbar {
+    padding: 1rem;
+    border-radius: 0;
+    margin: 0;
+  }
+
+  .search-box {
+    width: 100%;
+    margin-top: 10px;
+  }
+}
+    /* .dropdown-menu {
+      border-radius: 10px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    }
+    .dropdown-item {
+      font-weight: 500;
+      padding: 10px 20px;
+    } */
+  </style>
+</head>
+
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm py-3">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center" href="{% url 'home' %}">
+        <img src="{% static 'main/logo.png' %}" alt="Logo" class="me-2" height="80">
+        <strong>EarthBubs</strong>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
+        <ul class="navbar-nav mx-auto mb-2 mb-lg-0 fs-4">
+          <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Home</a></li>
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="productsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Products
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="productsDropdown">
+              <li><a class="dropdown-item" href="{% url 'products_pampers' %}">Pampers</a></li>
+              <li><a class="dropdown-item" href="{% url 'products_boys' %}">Boy's Fashions</a></li>
+              <li><a class="dropdown-item" href="{% url 'products_girls' %}">Girl's Fashions</a></li>
+              <li><a class="dropdown-item" href="{% url 'products_soap' %}">Soap</a></li>
+              <li><a class="dropdown-item" href="{% url 'products_stroller' %}">Stroller</a></li>
+              <li><a class="dropdown-item" href="{% url 'products_bottle' %}">Bottle</a></li>
+            </ul>
+          </li>
+
+          <li class="nav-item"><a class="nav-link" href="{% url 'offers' %}">Offers</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'about' %}">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'contacts' %}">Contacts</a></li>
+        </ul>
+
+        <form class="d-flex align-items-center">
+          <input class="form-control me-2 search-box" type="search" placeholder="Search..." aria-label="Search">
+          <button class="btn" type="submit"><i class="bi bi-search"></i></button>
+        </form>
+        <div class="ms-3 d-flex align-items-center gap-3">
+          <a href="{% url 'cart' %}" class="text-dark"><i class="bi bi-bag" style="font-size: 1.5rem;"></i>
+          <span id="cart-count" class="position-absolute top-10 start-200 translate-middle badge rounded-pill bg-danger">
+      0
+    </span></a>
+          <a href="{% url 'login' %}" class="text-dark"><i class="bi bi-person-circle" style="font-size: 1.5rem; margin-left: 15px;"></i></a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  
+
+  <!-- Main Content -->
+  {% block content %}
+  {% endblock %}
+
+  
+  <section>
+<footer class="text-dark pt-4" style="background-color: rgba(133, 211, 237, 0.966);">
+  <div class="container">
+    <div class="row">
+
+      <!-- KNOW -->
+      <div class="col-md-3 mb-4">
+        <h6 class="fw-bold text-uppercase border-bottom pb-2">Know</h6>
+        <ul class="list-unstyled">
+          <li><a href="#" class="text-dark text-decoration-none">About Us</a></li>
+          <li><a href="#" class="text-dark text-decoration-none">About Earthbubs Store</a></li>
+          <li><a href="#" class="text-dark text-decoration-none">Bulk Purchase & Corporate Gifts</a></li>
+        </ul>
+      </div>
+
+      <!-- TERMS & CONDITIONS -->
+      <div class="col-md-3 mb-4">
+        <h6 class="fw-bold text-uppercase border-bottom pb-2">Terms & Conditions</h6>
+        <ul class="list-unstyled">
+          <li><a href="#" class="text-dark text-decoration-none">Shipping & Return Policies</a></li>
+          <li><a href="#" class="text-dark text-decoration-none">Privacy Policy</a></li>
+          <li><a href="#" class="text-dark text-decoration-none">FAQ’s</a></li>
+        </ul>
+      </div>
+
+      <!-- CONTACT US -->
+      <div class="col-md-4 mb-4">
+        <h6 class="fw-bold text-uppercase border-bottom pb-2">Contact Us</h6>
+        <p class="mb-1">For Sale: <a href="mailto:earthbubs@co.in" class="text-dark text-decoration-none">Earthbubs@co.in</a></p>
+        <p class="mb-1">Call: +91 1234567890</p>
+        <p class="mb-1">For Complaints: 1800 202 2222</p>
+        <p class="mb-1">Chat Time: Our Team is Available<br>
+        From Monday to Saturday from 9.00AM to 8.00PM</p>
+        <p class="mb-0">For Complaints: <a href="#" class="text-dark text-decoration-none">Ebcustomercare.com</a></p>
+      </div>
+
+      <!-- FOLLOW US -->
+      <div class="col-md-2 mb-4">
+        <h6 class="fw-bold text-uppercase border-bottom pb-2">Follow Us</h6>
+        <i class="bi bi-instagram fs-5 my-2"></i>
+        <i class="bi bi-facebook fs-5 my-2"></i>
+       <i class="bi bi-twitter fs-5 my-2"></i>
+      </div>
+    </div>
+
+    <!-- Bottom Border -->
+    <hr class="border-dark">
+
+    <!-- Copyright -->
+    <div class="text-center pb-3">
+      <small>&copy; 2025 Earthbubs. All Rights Reserved.</small>
+    </div>
+  </div>
+</footer>
+</section>
+
+<!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Bootstrap Icons (for Instagram, Facebook, Twitter icons) -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+  function updateCartCount() {
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    let totalQty = 0;
+    cart.forEach(item => totalQty += item.quantity);
+    document.getElementById('cart-count').textContent = totalQty;
+  }
+
+  document.addEventListener('DOMContentLoaded', updateCartCount);
+  updateCartCount();
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+
+
+    {% block script %}{% endblock %}
+
+</body>
+</html>
+
+
+
+
