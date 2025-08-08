@@ -1,13 +1,11 @@
 #!/usr/bin/env bash
 
-# Exit if any command fails
-set -o errexit
-
-# Install dependencies
+# Install Python dependencies
 pip install -r requirements.txt
 
-# Run migrations
+# Optional: run migrations
 python manage.py migrate
 
-# Collect static files (if needed)
+# Optional: collect static files (if you're using them)
 python manage.py collectstatic --noinput
+
