@@ -8,4 +8,3 @@ python manage.py migrate
 
 # Optional: collect static files (if you're using them)
 python manage.py collectstatic --noinput
-
